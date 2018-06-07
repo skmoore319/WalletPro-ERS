@@ -1,0 +1,19 @@
+{
+  "name": "moore-scott-project-1",
+  "version": "1.0.0",
+  "description": "An employee reimbursement system",
+  "main": "index.ts",
+  "scripts": {
+    "start": "nodemon --exec ts-node src/index.ts"
+  },
+  "author": "Scott Moore",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.248.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.11.1"
+  }
+}
