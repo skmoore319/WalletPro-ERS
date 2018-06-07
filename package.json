@@ -11,9 +11,17 @@
   "dependencies": {
     "aws-sdk": "^2.248.1",
     "body-parser": "^1.18.3",
-    "express": "^4.16.3"
+    "bootstrap": "^4.1.1",
+    "express": "^4.16.3",
+    "jquery": "^3.3.1",
+    "popper": "^1.0.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "tether": "^1.4.4"
   },
   "devDependencies": {
-    "@types/express": "^4.11.1"
+    "@types/express": "^4.11.1",
+    "@types/react-dom": "^16.0.6",
+    "@types/react-router": "^4.0.26"
   }
 }
