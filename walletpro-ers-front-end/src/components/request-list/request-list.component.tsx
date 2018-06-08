@@ -11,9 +11,9 @@ export class RequestListComponent extends React.Component<IProp, any> {
         super(props);
     }
 
-    // public componentDidMount() {
-    //     this.props.updateList('Fetching');
-    // }
+    public componentDidMount() {
+        this.props.updateList('Fetching');
+    }
 
     // public updateList = () => {
     //     this.props.updateList('Fetching');
