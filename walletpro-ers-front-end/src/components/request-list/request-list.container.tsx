@@ -9,7 +9,7 @@ export const mapDispatchToProps = {
 //   updateList,
 };
 
-export const MoviesContainer = connect(
+export const RequestListContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(RequestListComponent);
