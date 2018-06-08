@@ -9,12 +9,17 @@
   "author": "Scott Moore",
   "license": "ISC",
   "dependencies": {
+    "@types/react-redux": "^6.0.2",
+    "@types/react-router-dom": "^4.2.7",
+    "@types/redux-logger": "^3.0.6",
+    "@types/redux-thunk": "^2.1.0",
     "aws-sdk": "^2.248.1",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.1",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
     "popper": "^1.0.1",
+    "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "tether": "^1.4.4"

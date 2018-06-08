@@ -1,20 +1,25 @@
 import * as React from 'react';
+import './include/bootstrap'
 import './App.css';
+import { Provider } from 'react-redux';
+import { store } from './Store';
+import { HashRouter, Switch, Route } from 'react-router-dom';
+import { Sample } from './components/sample';
 
-import logo from './logo.svg';
+// import logo from './logo.svg';
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Provider store={store}>
+        <HashRouter>
+          <div>
+              <Switch>
+                <Route component={Sample} />
+              </Switch>
+          </div>
+        </HashRouter>
+      </Provider>
     );
   }
 }
