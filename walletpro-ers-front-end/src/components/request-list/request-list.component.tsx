@@ -1,9 +1,13 @@
 import * as React from 'react';
+// import { ListComponent } from './list/list-component';
 
-export class ListComponent extends React.Component<any, any> {
+export class RequestListComponent extends React.Component<any, any> {
     public render() {
         return (
-            <div className="container">
+            <div className="container" id="main-menu">
+                <h1>Hello, Scott</h1>
+                <h2>You have submitted 3 requests</h2>
+                <div className="container">
                 <table className="table">
                     <tr data-toggle="collapse" data-target="#more-info-1" className="accordion-toggle" >
                         <td>thing</td>
@@ -201,6 +205,7 @@ export class ListComponent extends React.Component<any, any> {
                         <td>thing</td>
                     </tr>
                 </table>
+            </div>
             </div>
         )
     }
