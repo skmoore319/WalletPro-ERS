@@ -1,3 +1,4 @@
+import { Reimbursement } from './../model/Reimbursement';
 // import { movieReducer } from './movie.reducer';
 import { combineReducers } from "redux";
 // import { ticTacToeReducer } from "./tic-tac-toe.reducer";
@@ -32,17 +33,23 @@ import { clickerReducer } from "./clicker.reducer";
 //   newMovie: Movie
 // }
 
+export interface IRequestListState {
+  requests: Reimbursement[]
+}
+
 export interface IState {
   clicker: {
     clicks: number
   },
+  request: IRequestListState
   // ticTacToe: ITicTacToeState,
   // signIn: ISignIn,
   // movie: IMovieTable,
 };
 
 export const state = combineReducers<IState>({
-  clicker: clickerReducer
+  clicker: clickerReducer,
+  // requests: requestReducer
   // movie: movieReducer,
   // signIn: signInReducer,
   // ticTacToe: ticTacToeReducer,
