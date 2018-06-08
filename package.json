@@ -13,7 +13,7 @@
     "@types/react-router-dom": "^4.2.7",
     "@types/redux-logger": "^3.0.6",
     "@types/redux-thunk": "^2.1.0",
-    "aws-sdk": "^2.248.1",
+    "aws-sdk": "^2.254.1",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.1",
     "express": "^4.16.3",

@@ -39,21 +39,23 @@ export const updateDescription = (description: string) => {
   }
 }
 
-export const updateMovies = (year: number) => (dispatch: any) => {
-    fetch('localhost:3001/movies/year/' + year, {credentials: 'include'})
+export const updateList = (phrase: string) => (dispatch: any) => {
+    
+    fetch('http://localhost:3001/employees/skmoore/requests')
     .then(resp => {
-    //   console.log(resp.status)
+      console.log('Fetching')
       if(resp.status === 401 || resp.status === 403) {
         return;
       }
       return resp.json();
     })
-    .then((movies) => {
+    .then((request) => {
+      console.log(request)
         dispatch({
             payload: {
-              movies
+              request
             },
-            type: requestTypes.UPDATE_MOVIES,
+            type: requestTypes.UPDATE_LIST,
           })
      
     })

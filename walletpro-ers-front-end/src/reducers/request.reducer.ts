@@ -19,6 +19,11 @@ const initialState: IRequestListState = {
 
 export const requestReducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case requestTypes.UPDATE_LIST:
+        return {
+            ...state,
+            requests: action.payload.request
+        };
     case requestTypes.UPDATE_YEAR:
       return {
         ...state,

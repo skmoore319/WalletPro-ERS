@@ -4,6 +4,7 @@ export class Reimbursement {
     public items:any = [];
     public status:string = '';
     public approver:string = ''
+    public receipts:any = [];
 
     constructor(username: string, items: any) {
         this.username = username;
@@ -11,5 +12,6 @@ export class Reimbursement {
         this.items = items;
         this.status = 'Pending';
         this.approver = '';
+        this.receipts = [];
     }
 }

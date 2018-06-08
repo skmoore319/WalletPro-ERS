@@ -3,7 +3,7 @@ import { IState } from '../../reducers';
 import { RequestListComponent } from './request-list.component';
 // import { updateMovies, updateYear } from '../../actions/movie/movie.actions';
 
-const mapStateToProps = (state: IState) => (state.clicker);
+const mapStateToProps = (state: IState) => (state.request);
 
 export const mapDispatchToProps = {
 //   updateList,

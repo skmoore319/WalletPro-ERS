@@ -19,6 +19,14 @@ app.use((req:Request, resp:Response, next:NextFunction) => {
 // Register bodyParser
 app.use(bodyParser.json());
 
+// allow cross origins
+app.use((req, resp, next) => {
+    resp.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    resp.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    resp.header('Access-Control-Allow-Credentials', 'true');
+    next();
+  });
+
 /**********************************************************************
  * Register Routers
  *********************************************************************/

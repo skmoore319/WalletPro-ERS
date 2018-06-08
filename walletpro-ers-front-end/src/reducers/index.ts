@@ -1,3 +1,4 @@
+import { requestReducer } from './request.reducer';
 import { Reimbursement } from './../model/Reimbursement';
 // import { movieReducer } from './movie.reducer';
 import { combineReducers } from "redux";
@@ -49,7 +50,7 @@ export interface IState {
 
 export const state = combineReducers<IState>({
   clicker: clickerReducer,
-  // requests: requestReducer
+  request: requestReducer
   // movie: movieReducer,
   // signIn: signInReducer,
   // ticTacToe: ticTacToeReducer,
