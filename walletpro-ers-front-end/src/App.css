@@ -26,3 +26,12 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/******************************************
+*   NAVIGATION
+*******************************************
+*/
+
+#selection-dropdown-menu {
+  left: -60px;
+}
