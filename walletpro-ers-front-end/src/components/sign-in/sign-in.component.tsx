@@ -20,31 +20,74 @@ export class SignInComponent extends React.Component<any, any> {
   public submit = (e: any) => {
       e.preventDefault();
       const {username, password} = this.props; // Destructuring
-      fetch('http://localhost:3000/validate/login', {
-        body: JSON.stringify({username, password}),
-        credentials: 'include',
-        headers: {
-        'content-type': 'application/json'
-        },
-        method: 'POST'
-        })
-        .then(resp => {
-            console.log(resp.status)
-            if (resp.status === 401) {
-                this.props.updateError('Invalid credentials, try again.');
-            }
-            if (resp.status === 200) {
-                return resp.json();
-            }
-            return;
-        })
-        .then(data => {
-            console.log(data);
-            this.props.history.push('/#/');
-        })
-        .catch(err => {
-            this.props.updateError('Unable to log in at this time. Please try again.');
-        })
+    //   console.log(`${username} ${password}`)
+    //   console.log(JSON.stringify({username, password}));
+    //   fetch('http://localhost:3001/validate/login', {
+    //     body: JSON.stringify({username, password}),
+    //     credentials: 'include',
+    //     headers: {
+    //     'content-type': 'application/json'
+    //     },
+    //     method: 'POST'
+    //     })
+    //     .then(resp => {
+    //         console.log(resp.body);
+    //         console.log(resp.status)
+    //         if (resp.status >= 400 || resp.status < 500) {
+    //             if (resp.status === 401) {
+    //                 this.props.updateError('Invalid credentials, try again.');
+    //                 return resp.status;
+    //             } else if (resp.status === 404) {
+    //                 this.props.updateError(`Sorry. You don't exist`);
+    //                 return resp.status;
+    //             } else {
+    //                 this.props.updateError(`Bad request`);
+    //                 return resp.status;
+    //             }
+    //         }
+    //         if (resp.status === 200) {
+    //             this.props.updateError(``);
+    //             console.log(resp.json);
+    //             return resp.json();
+    //         } else {
+    //             return resp.status;
+    //         }
+    //     })
+    //     .then(data => {
+    //         console.log(data);
+    //         // this.props.history.push('');
+    //     })
+    //     .catch(err => {
+    //         this.props.updateError('Unable to log in at this time. Please try again.');
+    //     })
+
+        fetch('http://localhost:3001/validate/login', {
+            body: JSON.stringify({username, password}),
+            credentials: 'include',
+            headers: {
+            'content-type': 'application/json'
+            },
+            method: 'POST'
+            })
+            .then(resp => {
+                console.log(resp.status)
+                if (resp.status === 401) {
+                    this.props.updateError('Invalid credentials, try again.');
+                } else if (resp.status === 404) {
+                    this.props.updateError(`sry. u dont exists haha`);
+                }
+                if (resp.status === 200) {
+                    return resp.json();
+                }
+                return;
+            })
+            .then(data => {
+                console.log(data);
+                if (data) {this.props.history.push('')};
+            })
+            .catch(err => {
+                this.props.updateError('Unable to log in at this time. Please try again.');
+            })
   }
 
   public render() {

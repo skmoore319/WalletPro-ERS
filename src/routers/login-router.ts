@@ -9,47 +9,51 @@ export const loginRouter = express.Router();
  */
 loginRouter.post('/login', (req, resp, next) => {
 
+    console.log('Reached login post')
   const user = req.body && req.body;
+  console.log(user);
 
   // should probably send a call to the db to get the actual user object to determine role
   // Query the database to see if a username exists in the database
   // Need functions in DAO that:
     // Queries the user table and gets a response if the input username matches one in the DB
         
-    ersService.userExists(req.body.username)
-        .then(data => {
-            let targetUser = data.Items[0];
-            // console.log(targetUser.password);
-            // resp.json(data.Items[0]);
-            if (targetUser.password === req.body.password) {
-                req.session.role = targetUser.role;
-                resp.json({
-                    username: targetUser.username,
-                    role: req.session.role
-                });
-            } else {
-                resp.sendStatus(401);
-            }
-        }).catch(err => {
-            console.log(err);
-            resp.sendStatus(500);
-        })
+    // ersService.userExists(req.body.username)
+    //     .then(data => {
+    //         let targetUser = data.Items[0];
+    //         console.log(targetUser);
+    //         // resp.json(data.Items[0]);
+    //         if (targetUser.password === req.body.password) {
+    //             console.log(`Reached successful login`)
+    //             req.session.role = targetUser.role;
+    //             resp.json({
+    //                 username: targetUser.username,
+    //                 role: req.session.role
+    //             });
+    //         } else {
+    //             console.log(`Reached invalid login`)
+    //             resp.sendStatus(401);
+    //         }
+    //     }).catch(err => {
+    //         console.log(err);
+    //         resp.sendStatus(500);
+    //     })
 
-    // if (req.body.username === 'admin' && req.body.password === 'admin') {
-    //     req.session.role = 'admin';
-    //     resp.json({
-    //     username: 'admin',
-    //     role: 'admin'
-    //     });
-    // } else if (req.body.username === 'blake' && req.body.password === 'pass') {
-    //     req.session.role = 'employee';
-    //     resp.json({
-    //     username: 'blake',
-    //     role: 'employee'
-    //     });
-    // } else {
-    //     resp.sendStatus(401);
-    // }
+    if (req.body.username === 'admin' && req.body.password === 'admin') {
+        req.session.role = 'admin';
+        resp.json({
+        username: 'admin',
+        role: 'admin'
+        });
+    } else if (req.body.username === 'blake' && req.body.password === 'pass') {
+        req.session.role = 'employee';
+        resp.json({
+        username: 'blake',
+        role: 'employee'
+        });
+    } else {
+        resp.sendStatus(401);
+    }
 });
 
 /**
