@@ -4,15 +4,15 @@ import { Reimbursement } from './../model/Reimbursement';
 import { combineReducers } from "redux";
 // import { ticTacToeReducer } from "./tic-tac-toe.reducer";
 import { clickerReducer } from "./clicker.reducer";
-// import { signInReducer } from "./sign-in.reducer";
+import { signInReducer } from "./sign-in.reducer";
 // import { Movie } from "../model/Movie"
 
 
-// export interface ISignIn {
-//   username: string,
-//   password: string,
-//   errorMessage: string
-// }
+export interface ISignIn {
+  username: string,
+  password: string,
+  errorMessage: string
+}
 
 // export interface ITicTacToeState {
 //   game: string[][],
@@ -42,17 +42,17 @@ export interface IState {
   clicker: {
     clicks: number
   },
-  request: IRequestListState
+  request: IRequestListState,
   // ticTacToe: ITicTacToeState,
-  // signIn: ISignIn,
+  signIn: ISignIn,
   // movie: IMovieTable,
 };
 
 export const state = combineReducers<IState>({
   clicker: clickerReducer,
-  request: requestReducer
+  request: requestReducer,
   // movie: movieReducer,
-  // signIn: signInReducer,
+  signIn: signInReducer,
   // ticTacToe: ticTacToeReducer,
   
 });
