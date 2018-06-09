@@ -1,6 +1,9 @@
 import express from 'express';
 import {Request, Response, NextFunction} from 'express';
+import session from 'express-session';
+import path from 'path';
 import bodyParser from 'body-parser';
+import {loginRouter} from './routers/login-router';
 import {employeeMenuRouter} from './routers/employee-menu-router';
 import {adminMenuRouter} from './routers/admin-menu-router';
 
@@ -8,6 +11,21 @@ const app = express();
 
 const port = 3001;
 app.set('port', port);
+
+const sess = {
+    secret: 'keyboard cat',
+    cookie: { secure: false },
+    resave: false,
+    saveUninitialized: false
+  };
+
+// set up express to attach sessions
+app.use(session(sess));
+
+// allow static content to be served, navigating to url with nothing after / will serve index.html from public
+app.use(
+  express.static(path.join(__dirname, 'static'))
+);
 
 // Log response for testing purposes
 app.use((req:Request, resp:Response, next:NextFunction) => {
@@ -32,6 +50,8 @@ app.use((req, resp, next) => {
  *********************************************************************/
 // Need route to employee main menu. Authentication should happen above, and
 // choose where to go based on user status
+app.use('/validate', loginRouter);
+
 app.use('/employees', employeeMenuRouter);
 
 app.use('/admins', adminMenuRouter);

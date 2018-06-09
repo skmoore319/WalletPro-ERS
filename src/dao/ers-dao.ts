@@ -47,6 +47,20 @@ const docClient = new aws.DynamoDB.DocumentClient();
 //     });
 //   }
 
+// To manage users
+export function userExists(username: string): Promise<any> {
+    return docClient.query({
+        TableName: 'user',
+        KeyConditionExpression: '#usr = :usename',
+        ExpressionAttributeNames: {
+            '#usr': 'username'
+        },
+        ExpressionAttributeValues: {
+            ':usename': username
+        }
+    }).promise();
+}
+
 // - Get and display all requests that are made by a logged in employee.
 export function viewMyRequests(username: string): Promise<any> {
     // console.log(username);

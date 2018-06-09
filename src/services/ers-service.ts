@@ -1,6 +1,11 @@
 // A service that can handle the routers' commands and submit queries to the DAO
 import * as ersDao from '../dao/ers-dao';
 
+// User management
+export function userExists(username: string) {
+    return ersDao.userExists(username);
+}
+
 // If the user is an employee, this function will show all reimbursement requests
 // under the employee's username
 // If the user is an admin, this function will show all reimbursement requests submitted

@@ -9,6 +9,7 @@
   "author": "Scott Moore",
   "license": "ISC",
   "dependencies": {
+    "@types/express-session": "^1.15.10",
     "@types/react-redux": "^6.0.2",
     "@types/react-router-dom": "^4.2.7",
     "@types/redux-logger": "^3.0.6",
