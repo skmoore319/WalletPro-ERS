@@ -50,7 +50,7 @@ export class SignInComponent extends React.Component<any, any> {
         })
         .then(data => {
             console.log(data.Items);
-            if (data.Items) {this.props.history.push('')};
+            if (data.Items) {this.props.history.push('/users/skmoore')};
         })
         .catch(err => {
             this.props.updateError('Unable to log in at this time. Please try again.');

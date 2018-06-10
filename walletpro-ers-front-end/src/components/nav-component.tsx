@@ -17,7 +17,7 @@ export const NavComponent: React.StatelessComponent<{}> = () => {
                 <div className="collapse navbar-collapse" id="navbarsExample04">
                 <ul className="navbar-nav ml-auto margin-nav">
                     <li className="nav-item active">
-                    <Link to="/home" className="unset-anchor nav-link">Home</Link>
+                    <Link to="/users/skmoore" className="unset-anchor nav-link">Home</Link>
                     </li>
                     <li className="nav-item active">
                     <Link to="/log-in" className="unset-anchor nav-link">Log In</Link>
@@ -32,7 +32,7 @@ export const NavComponent: React.StatelessComponent<{}> = () => {
                     <Link to="/view-pending" className="unset-anchor nav-link">View All Pending</Link>
                     </li>
                     <li className="nav-item active">
-                    <Link to="/new-request" className="unset-anchor nav-link">Submit New Request</Link>
+                    <Link to="/users/skmoore/add-request" className="unset-anchor nav-link">Submit New Request</Link>
                     </li>
                     <li className="nav-item active dropdown">
                     <a className="nav-link dropdown-toggle pointer" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selection</a>
