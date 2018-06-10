@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>Navbar Template for Bootstrap</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="navbar.css" rel="stylesheet">
+</head>
+
+<body onload="retrieveRequests()" >
+  
+  <div>
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
+        <div class="navbar-header c-pointer shift-left">
+            WalletPro
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav ml-auto margin-nav">
+            <li class="nav-item active">
+              <a href"/users/skmoore" class="unset-anchor nav-link">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/log-in" class="unset-anchor nav-link">Log In</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/log-out" class="unset-anchor nav-link">Log Out</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/employee-search" class="unset-anchor nav-link">Search Employee</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/view-pending" class="unset-anchor nav-link">View All Pending</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/users/skmoore/add-request" class="unset-anchor nav-link">Submit New Request</a>
+            </li>
+            <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle pointer" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selection</a>
+              <div class="dropdown-menu" id="selection-dropdown-menu" aria-labelledby="dropdown04">
+                  <div class="dropdown-item"><Link to="/home" class="unset-anchor nav-link active">Approve</Link></div>
+                  <div class="dropdown-item"><Link to="/home" class="unset-anchor nav-link active">Deny</Link></div>
+              </div>
+            </li>
+        </ul>
+        </div>
+    </nav>
+  </div>
+
+  <div class="container" id="main-menu">
+    <h1>Hello, Scott</h1>
+    <h2>You have submitted 3 requests</h2>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Submitted by</th>
+                        <th scope="col">Date Of Submission</th>
+                        <th scope="col">Number Of Items</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Approver</th>
+                    </tr>
+                    </thead>
+                    <tbody id="main-table">
+                        <tr data-toggle="collapse" data-target="#more-info-1" class="accordion-toggle" >
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={6} class="hidden-row" >
+                                <div class="accordion-body-collapse" id="more-info-1" >Sample</div>
+                            </td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr>
+                        <tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr><tr>
+                            <td>thing</td>
+                            <td>thing</td>
+                            <td>thing</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
