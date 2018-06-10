@@ -1,5 +1,6 @@
 import { requestTypes } from './../actions/request/request.types';
 import { IRequestListState } from './index';
+import { Item } from '../model/Item';
 
 
 const initialState: IRequestListState = {
@@ -10,6 +11,7 @@ const initialState: IRequestListState = {
 //     title: '',
 //     year: 0,
 //   },
+  item: new Item('', 0, 'OTHER', '', new Date()),
   requests: [],
   // rating: 0,
   // title: '',
@@ -22,7 +24,22 @@ export const requestReducer = (state = initialState, action: any) => {
     case requestTypes.UPDATE_LIST:
         return {
             ...state,
-            requests: action.payload.request
+            item: action.payload.request
+        };
+    case requestTypes.UPDATE_TYPE:
+        return {
+            ...state,
+            requests: action.payload.type
+        };
+    case requestTypes.UPDATE_DATE:
+        return {
+            ...state,
+            requests: action.payload.dateOfExpense
+        };
+    case requestTypes.UPDATE_AMOUNT:
+        return {
+            ...state,
+            requests: action.payload.amount
         };
     case requestTypes.UPDATE_YEAR:
       return {
@@ -44,7 +61,7 @@ export const requestReducer = (state = initialState, action: any) => {
     case requestTypes.UPDATE_TITLE:
       return {
         ...state,
-        movieForm: {
+        item: {
           ...state.requests,
           title: action.payload.title
         }

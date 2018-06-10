@@ -11,6 +11,33 @@ export const updateYear = (year: number) => {
   }
 }
 
+export const updateType = (type: string) => {
+  return {
+    payload: {
+      type
+    },
+    type: requestTypes.UPDATE_TYPE
+  }
+}
+
+export const updateDate = (dateOfExpense: Date) => {
+  return {
+    payload: {
+      dateOfExpense
+    },
+    type: requestTypes.UPDATE_DATE
+  }
+}
+
+export const updateAmount = (amount: string) => {
+  return {
+    payload: {
+      amount
+    },
+    type: requestTypes.UPDATE_AMOUNT
+  }
+}
+
 export const updateTitle = (title: string) => {
   return {
     payload: {

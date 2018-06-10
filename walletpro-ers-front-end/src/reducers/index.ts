@@ -5,6 +5,7 @@ import { combineReducers } from "redux";
 // import { ticTacToeReducer } from "./tic-tac-toe.reducer";
 import { clickerReducer } from "./clicker.reducer";
 import { signInReducer } from "./sign-in.reducer";
+import { Item } from '../model/Item';
 // import { Movie } from "../model/Movie"
 
 
@@ -35,7 +36,8 @@ export interface ISignIn {
 // }
 
 export interface IRequestListState {
-  requests: Reimbursement[]
+  requests: Reimbursement[],
+  item: Item
 }
 
 export interface IState {
