@@ -19,7 +19,7 @@ function retrieveRequests() {
 function addReimbursement(reimbursement) {
   const body = document.getElementById('main-table');
 
-  const row = document.createElement('tr'); // create <tr>
+  let row = document.createElement('tr'); // create <tr>
   
   let data = document.createElement('td'); // create <td>
   data.innerText = reimbursement.username; // assign value to the td
@@ -43,6 +43,58 @@ function addReimbursement(reimbursement) {
   row.appendChild(data);
   
   body.appendChild(row); // append the row to the body
+
+  row = document.createElement('tr');
+  data = document.createElement('th');
+  data.innerText = 'Time Created';
+  row.appendChild(data);
+
+  data = document.createElement('th');
+  data.innerText = 'Title';
+  row.appendChild(data);
+
+  data = document.createElement('th');
+  data.innerText = 'Amount';
+  row.appendChild(data);
+
+  data = document.createElement('th');
+  data.innerText = 'Type';
+  row.appendChild(data);
+
+  data = document.createElement('th');
+  data.innerText = 'Description';
+  row.appendChild(data);
+
+  body.appendChild(row);
+
+  reimbursement.items.forEach(addItem);
+}
+
+function addItem(item) {
+  const body = document.getElementById('main-table');
+  const row = document.createElement('tr');
+
+  let data = document.createElement('td');
+  data.innerText = item.timeOfExpense;
+  row.appendChild(data);
+
+  data = document.createElement('td');
+  data.innerText = item.title;
+  row.appendChild(data);
+
+  data = document.createElement('td');
+  data.innerText = item.amount;
+  row.appendChild(data);
+
+  data = document.createElement('td');
+  item.type ? data.innerText = item.type: data.innerText = '-N/A-';
+  row.appendChild(data);
+
+  data = document.createElement('td');
+  data.innerText = item.description;
+  row.appendChild(data);
+
+  body.appendChild(row);
 }
 
 function retreiveMovies() {
