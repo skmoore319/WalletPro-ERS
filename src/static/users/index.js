@@ -41,7 +41,22 @@ function logout() {
 }
 
 function getCurrentUser() {
-  
+  fetch('http://localhost:3001/employees/username/identify', {credentials: 'include'})
+    .then(resp => resp.json())
+    .then((user) => {
+      console.log(user);
+      const body = document.getElementById('main-menu');
+      let elem = document.createElement('h1');
+      elem.innerText = `Hello, ${user.firstName}`;
+      body.appendChild(elem);
+      retrieveRequests();
+    })
+    .catch(err => {
+      console.log(err);
+      const body = document.getElementById('main-menu');
+      body.innerText = `Sorry. I still don't know who you are.`
+    });
+    
 }
 
 function retrieveRequests() {
@@ -49,7 +64,36 @@ function retrieveRequests() {
   fetch(`http://localhost:3001/employees/username`, {credentials: 'include'})
     .then(resp => resp.json())    
     .then((reimbursements) => {
-      
+      const mainCount = document.getElementById('main-menu');
+      let elem = document.createElement('h2');
+      elem.innerText = `You have submitted ${reimbursements.length} requests`
+      const header = document.getElementById('table-head-row');
+
+      let data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Submitted by'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Date Of Submission'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Number Of Items'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Status'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Approver'
+      header.appendChild(data);
+
       const body = document.getElementById('main-table');
       body.innerHTML = '';
       // Start here.

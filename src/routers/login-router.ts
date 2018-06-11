@@ -1,5 +1,6 @@
 import { updateUsername } from './../../redux-demo/redux-demo/src/actions/sign-in/sign-in.actions';
 import express, { json } from 'express';
+import session from 'express-session';
 import * as ersService from '../services/ers-service';
 
 export const loginRouter = express.Router();

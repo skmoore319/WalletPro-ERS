@@ -17,7 +17,7 @@
   <link href="navbar.css" rel="stylesheet">
 </head>
 
-<body onload="getCurrentUser(); retrieveRequests();" >
+<body onload="getCurrentUser()" >
   
   <div>
     <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
@@ -60,23 +60,23 @@
   </div>
 
   <div class="container" id="main-menu">
-    <h1 id="main-greeting">Hello, Scott</h1>
-    <h2 id="num-requests">You have submitted 3 requests</h2>
+    <!-- <h1 id="main-greeting">Hello, Scott</h1>
+    <h2 id="num-requests">You have submitted 3 requests</h2> -->
     
     <div class="container">
         <div class="row">
             <div class="col">
-                <table class="table">
+                <table class="table" >
                     <thead>
-                    <tr>
-                        <th scope="col">Submitted by</th>
-                        <th scope="col">Date Of Submission</th>
-                        <th scope="col">Number Of Items</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Approver</th>
-                    </tr>
+                        <tr id="table-head-row" >
+                            <!-- <th scope="col">Submitted by</th>
+                            <th scope="col">Date Of Submission</th>
+                            <th scope="col">Number Of Items</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Approver</th> -->
+                        </tr>
                     </thead>
-                    <tbody id="main-table">
+                    <tbody id="main-table" >
                         <!-- <tr data-toggle="collapse" data-target="#more-info-1" class="accordion-toggle" >
                             <td>thing</td>
                             <td>thing</td>

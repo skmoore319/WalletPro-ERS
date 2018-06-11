@@ -47,7 +47,7 @@ const docClient = new aws.DynamoDB.DocumentClient();
 //     });
 //   }
 
-// To manage users
+// To manage or identify users
 export function userExists(username: string): Promise<any> {
     return docClient.query({
         TableName: 'user',
@@ -60,6 +60,13 @@ export function userExists(username: string): Promise<any> {
         }
     }).promise();
 }
+
+// To identify users
+// export function identifyUser(username: string): Promise<any> {
+//     return docClient.query({
+//         TableName: 'user'
+//     })
+// }
 
 // - Get and display all requests that are made by a logged in employee.
 export function viewMyRequests(username: string): Promise<any> {

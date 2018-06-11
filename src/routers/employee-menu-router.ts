@@ -55,9 +55,17 @@ employeeMenuRouter.get('/username', (req:Request, resp:Response) => {
 });
 
 // Show the main menu for a logged in employee
-employeeMenuRouter.get('/:username', (req:Request, resp:Response) => {
-    console.log('Employee main menu reached!');
-    resp.end();
+employeeMenuRouter.get('/username/identify', (req:Request, resp:Response) => {
+    ersService.userExists(req.session.username)
+    .then(data => {
+        console.log(data)
+        let targetUser = data.Items[0];
+        console.log(targetUser);
+        resp.json(data.Items[0]);
+    }).catch(err => {
+        console.log(err);
+        resp.sendStatus(404);
+    })
 });
 
 // To main menu url, but post a new entry in the user's JSON object

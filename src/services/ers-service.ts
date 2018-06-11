@@ -6,6 +6,11 @@ export function userExists(username: string) {
     return ersDao.userExists(username);
 }
 
+// Identify a user so that they can be greeted, and functionality differs between employees and admins
+// export function identifyUser(username: string) {
+//     return ersDao.identifyUser(username);
+// }
+
 // If the user is an employee, this function will show all reimbursement requests
 // under the employee's username
 // If the user is an admin, this function will show all reimbursement requests submitted
