@@ -1,3 +1,4 @@
+import { updateUsername } from './../../redux-demo/redux-demo/src/actions/sign-in/sign-in.actions';
 import express, { json } from 'express';
 import * as ersService from '../services/ers-service';
 
@@ -28,10 +29,11 @@ loginRouter.post('/login', (req, resp, next) => {
                 console.log(`Reached successful login`)
                 console.log(targetUser.username)
                 req.session.role = targetUser.role;
+                req.session.username = targetUser.username;
                 console.log(req.session.role)
                 resp.json({
-                    username: targetUser.username,
-                    role: req.session.role
+                    username: 'skmoore',
+                    role: 'employee'
                 });
             } else {
                 console.log(`Reached invalid login`)

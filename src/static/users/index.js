@@ -1,5 +1,52 @@
+function loadData() {
+  let activeUser = localStorage.getItem('_activeUser');
+   if (!activeUser) {
+     
+      window.location = '../login/index.html';
+      return;
+    }
+   localStorage.removeItem('_activeUser');
+   // Decode the string data from the base-64 encode
+   activeUser = atob(activeUser);
+   // Parses to Object the JSON string
+   activeUser = JSON.parse(activeUser);
+   // Do what you need with the Object
+   return {
+     "currentUser": activeUser
+   };
+}
+
+function logout() {
+  fetch('http://localhost:3001/validate/logout', {
+    body: JSON.stringify(credential),
+    headers: {
+      'content-type': 'application/json'
+    },
+    credentials: 'include',
+    method: 'DELETE'
+  })
+  .then(resp => {
+    if (resp.status === 200) {
+      // console.log(resp.json());
+      return resp.json();
+    }
+    throw 'Unable to logout at this time, please try again later';
+  })
+  .then(data => {
+    window.location = '../sign-in/index.html';
+  })
+  .catch(err => {
+    document.getElementById('error-message').innerText = err;
+  })
+}
+
+function getCurrentUser() {
+  
+}
+
 function retrieveRequests() {
-  fetch('http://localhost:3001/employees/skmoore/requests', {credentials: 'include'})
+  console.log(loadData());
+  fetch(`http://localhost:3001/employees/username`, {credentials: 'include'})
     .then(resp => resp.json())    
     .then((reimbursements) => {
       

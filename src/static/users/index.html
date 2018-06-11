@@ -8,7 +8,7 @@
   <meta name="author" content="">
   <link rel="icon" href="../../../../favicon.ico">
 
-  <title>Navbar Template for Bootstrap</title>
+  <title>Main Menu -- WalletPro ERS</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
     crossorigin="anonymous">
@@ -17,7 +17,7 @@
   <link href="navbar.css" rel="stylesheet">
 </head>
 
-<body onload="retrieveRequests()" >
+<body onload="getCurrentUser(); retrieveRequests();" >
   
   <div>
     <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
@@ -33,10 +33,10 @@
               <a href"/users/skmoore" class="unset-anchor nav-link">Home</a>
             </li>
             <li class="nav-item active">
-              <a href="/log-in" class="unset-anchor nav-link">Log In</a>
+              <a href="/sign-in/index.html" class="unset-anchor nav-link">Log In</a>
             </li>
             <li class="nav-item active">
-              <a href="/log-out" class="unset-anchor nav-link">Log Out</a>
+              <a href="/sign-in/index.html" class="unset-anchor nav-link" >Log Out</a>
             </li>
             <li class="nav-item active">
               <a href="/employee-search" class="unset-anchor nav-link">Search Employee</a>
@@ -60,8 +60,8 @@
   </div>
 
   <div class="container" id="main-menu">
-    <h1>Hello, Scott</h1>
-    <h2>You have submitted 3 requests</h2>
+    <h1 id="main-greeting">Hello, Scott</h1>
+    <h2 id="num-requests">You have submitted 3 requests</h2>
     
     <div class="container">
         <div class="row">
@@ -77,7 +77,7 @@
                     </tr>
                     </thead>
                     <tbody id="main-table">
-                        <tr data-toggle="collapse" data-target="#more-info-1" class="accordion-toggle" >
+                        <!-- <tr data-toggle="collapse" data-target="#more-info-1" class="accordion-toggle" >
                             <td>thing</td>
                             <td>thing</td>
                             <td>thing</td>
@@ -271,7 +271,7 @@
                             <td>thing</td>
                             <td>thing</td>
                             <td>thing</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>

@@ -1,3 +1,4 @@
+import session from 'express-session';
 import express from 'express';
 import {Request, Response, NextFunction} from 'express';
 import * as ersService from '../services/ers-service';
@@ -37,11 +38,11 @@ let myReimbursements =
 ];
 
 // To index page containing all reimbursement requests for the employee
-employeeMenuRouter.get('/:username/requests', (req:Request, resp:Response) => {
+employeeMenuRouter.get('/username', (req:Request, resp:Response) => {
     console.log("Retrieving all reimbursement requests...");
     // Use a service to get and display all the requests made by the logged in employee
     // console.log(req.params.username);
-    ersService.viewMyRequests(req.params.username)
+    ersService.viewMyRequests(req.session.username)
         .then(data => {
             resp.json(data.Items);
         })
