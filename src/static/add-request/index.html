@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>Submit New Request</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="navbar.css" rel="stylesheet">
+</head>
+
+<body>
+  <div>
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
+      <div class="navbar-header c-pointer shift-left">
+          WalletPro
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav ml-auto margin-nav">
+            <li class="nav-item active">
+              <a href"/users/skmoore" class="unset-anchor nav-link">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/sign-in/index.html" class="unset-anchor nav-link">Log In</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/sign-in/index.html" class="unset-anchor nav-link" >Log Out</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/employee-search" class="unset-anchor nav-link">Search Employee</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/view-pending" class="unset-anchor nav-link">View All Pending</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/add-request/index.html" class="unset-anchor nav-link">Submit New Request</a>
+            </li>
+            <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle pointer" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selection</a>
+              <div class="dropdown-menu" id="selection-dropdown-menu" aria-labelledby="dropdown04">
+                  <div class="dropdown-item"><Link to="/home" class="unset-anchor nav-link active">Approve</Link></div>
+                  <div class="dropdown-item"><Link to="/home" class="unset-anchor nav-link active">Deny</Link></div>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container" id="main-submit-menu">
+    <div class="row">
+      <div class="col">
+        <table class="table">
+            <thead>
+                <tr id="table-head-row" >
+                    <th scope="col">Date Of Expense</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+  <form class="container" onsubmit="event.preventDefault(); addMovie();">
+    <div class="form-row">
+      <div class="form-group col-md">
+        <label for="input-date">Date Of Expense</label>
+        <input type="date" class="form-control" id="input-date" placeholder="Nearest Day" required>
+      </div>
+      <div class="form-group col-md">
+        <label for="input-title">Title</label>
+        <input type="text" class="form-control" id="input-title" placeholder="Title" required>
+      </div>
+      <div class="form-group col-md">
+        <label for="input-amount">Amount</label>
+        <input type="number" class="form-control" id="input-amount" placeholder="Nearest Dollar" required>
+      </div>
+      <div class="form-group col-md">
+          <label for="input-type">Type</label>
+          <select class="form-control" id="input-type" placeholder="Please Select" required>
+            <option>FOOD</option>
+            <option>LODGING</option>
+            <option>TRAVEL</option>
+            <option>OTHER</option>
+          </select>
+      </div>
+      <div class="form-group col-md">
+          <label for="input-description">Description</label>
+          <textarea class="form-control" id="input-description" rows="1" required></textarea>
+      </div>
+    </div>
+      
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
+
+  <script src="add-item.js"></script>
+</body>
+
+</html>
