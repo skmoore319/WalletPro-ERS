@@ -145,10 +145,11 @@ adminMenuRouter.get('/:username/users/:employeeUsername', (req:Request, resp:Res
 
 // To get all pending requests
 let allPending = [];
-adminMenuRouter.get('/:username/requests/pending', (req:Request, resp:Response) => {
+adminMenuRouter.get('/requests/pending', (req:Request, resp:Response) => {
     // Use a service to display all pending reimbursement requests
     ersService.viewRequestsByStatus('Pending')
         .then(data => {
+            // console.log(data.Items)
             resp.json(data.Items);
         })
         .catch(err => {

@@ -48,8 +48,11 @@ function getCurrentUser() {
       const body = document.getElementById('main-menu');
       let elem = document.createElement('h1');
       elem.innerText = `Hello, ${user.firstName}`;
+      if (user.username === 'boss') {elem.innerText += ` ${user.lastName}`;}
       body.appendChild(elem);
-      retrieveRequests();
+      console.log(user.role);
+      if (user.role === 'admin') {retrievePending();}
+      else {retrieveRequests()};
     })
     .catch(err => {
       console.log(err);
@@ -57,6 +60,54 @@ function getCurrentUser() {
       body.innerText = `Sorry. I still don't know who you are.`
     });
     
+}
+
+function retrievePending() {
+  fetch(`http://localhost:3001/admins/requests/pending`)
+    .then(resp => resp.json())
+    .then((reimbursements) => {
+      
+      const mainCount = document.getElementById('main-menu');
+      let elem = document.createElement('h2');
+      elem.innerText = `You have ${reimbursements.length} pending requests`
+      mainCount.appendChild(elem);
+      const header = document.getElementById('table-head-row');
+
+      let data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Submitted by'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Date Of Submission'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Number Of Items'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Status'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Approver'
+      header.appendChild(data);
+
+      const body = document.getElementById('main-table');
+      body.innerHTML = '';
+      // Start here.
+      reimbursements.forEach(addReimbursement);
+    })
+    .catch(err => {
+      console.log(err);
+      const body = document.getElementById('main-table');
+      body.innerText = 'Unable to retreive data';
+    });
 }
 
 function retrieveRequests() {
@@ -67,6 +118,7 @@ function retrieveRequests() {
       const mainCount = document.getElementById('main-menu');
       let elem = document.createElement('h2');
       elem.innerText = `You have submitted ${reimbursements.length} requests`
+      mainCount.appendChild(elem);
       const header = document.getElementById('table-head-row');
 
       let data = document.createElement('th');
