@@ -17,7 +17,7 @@
   <link href="navbar.css" rel="stylesheet">
 </head>
 
-<body>
+<body >
   <div>
     <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
       <div class="navbar-header c-pointer shift-left">
@@ -71,11 +71,14 @@
                     <th scope="col">Description</th>
                 </tr>
             </thead>
+            <tbody id="item-table" >
+
+            </tbody>
         </table>
       </div>
     </div>
   </div>
-  <form class="container" onsubmit="event.preventDefault(); addMovie();">
+  <form class="container" onsubmit="event.preventDefault(); saveRequest();">
     <div class="form-row">
       <div class="form-group col-md">
         <label for="input-date">Date Of Expense</label>
@@ -104,8 +107,10 @@
       </div>
     </div>
       
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="button" class="btn btn-primary" onclick="addItem();">Add</button>
+    <button type="submit" class="btn btn-danger">Submit Request</button>
   </form>
+  
 
   <!-- Bootstrap core JavaScript
     ================================================== -->

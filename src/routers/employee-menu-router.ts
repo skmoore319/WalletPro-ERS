@@ -1,3 +1,4 @@
+import { updateUsername } from './../../walletpro-ers-front-end/src/actions/sign-in/sign-in.actions';
 import session from 'express-session';
 import express from 'express';
 import {Request, Response, NextFunction} from 'express';
@@ -69,12 +70,19 @@ employeeMenuRouter.get('/username/identify', (req:Request, resp:Response) => {
 });
 
 // To main menu url, but post a new entry in the user's JSON object
-employeeMenuRouter.post('/:username', (req:Request, resp:Response) => {
+employeeMenuRouter.post('/submit', (req:Request, resp:Response) => {
     // Use a service to post a new reimbursement request to the table of reimbursement
     // requests
 
-    let nextReimbursement = req.body;
-    let targetUser = req.params.username;
+    let nextReimbursement = {
+        timeSubmitted: Date.now(),
+        username: req.session.username,
+        receipts: [],
+        items: req.body,
+        status: 'Pending',
+        approver: 'none'
+    };
+    let targetUser = req.session.username;
 
     console.log(req.body);
 
