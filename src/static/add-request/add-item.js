@@ -36,8 +36,9 @@ function addMovie() {
 let itemList = [];
 function addItem() {
   console.log(itemList);
-  console.log(document.getElementById('input-date'))
-  const dateOfExpense = document.getElementById('input-date').valueAsDate.getTime();
+  console.log(document.getElementById('input-date').valueAsDate);
+  let dateString = document.getElementById('input-date').valueAsDate;
+  const dateOfExpense = Date.parse(dateString);
   const title = document.getElementById('input-title').value;
   const amount = parseInt(document.getElementById('input-amount').value);
   const type = document.getElementById('input-type').value;
@@ -50,8 +51,12 @@ function addItem() {
 
   const row = document.createElement('tr');
   let data = document.createElement('td');
-  let options = { month: "long", day: "numeric", year: "numeric" };
-  data.innerText = new Date(dateOfExpense).toLocaleDateString("en-US", options);
+  let options = { month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" };
+  data.innerText = new Date(dateOfExpense).toLocaleDateString("en-US");
+  let tag = document.createElement('div');
+  tag.innerText = dateOfExpense.toString();
+  tag.setAttribute('hidden', 'true');
+  data.appendChild(tag);
   row.appendChild(data);
 
   data = document.createElement('td');
