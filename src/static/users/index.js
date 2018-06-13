@@ -40,17 +40,18 @@ function logout() {
   })
 }
 
+// We need some lesser functionality from this function here.
 function getCurrentUser() {
   fetch('http://localhost:3001/employees/username/identify', {credentials: 'include'})
     .then(resp => resp.json())
     .then((user) => {
-      console.log(user);
+      // console.log(user);
       const body = document.getElementById('main-menu');
       let elem = document.createElement('h1');
       elem.innerText = `Hello, ${user.firstName}`;
       if (user.username === 'boss') {elem.innerText += ` ${user.lastName}`;}
       body.appendChild(elem);
-      console.log(user.role);
+      // console.log(user.role);
       if (user.role === 'admin') {retrievePending();}
       else {retrieveRequests()};
     })
@@ -61,11 +62,27 @@ function getCurrentUser() {
     });
     
 }
+let activeUser;
+function pullUser() {
+  fetch('http://localhost:3001/employees/username/identify', {credentials: 'include'})
+    .then(resp => resp.json())
+    .then((user) => {
+      // console.log(user);
+      // console.log(user.role === 'admin')
+      activeUser=user;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 
 function retrievePending() {
   fetch(`http://localhost:3001/admins/requests/pending`)
     .then(resp => resp.json())
     .then((reimbursements) => {
+
+      // console.log(activeUser)
       
       const mainCount = document.getElementById('main-menu');
       let elem = document.createElement('h2');
@@ -98,9 +115,19 @@ function retrievePending() {
       data.innerText = 'Approver'
       header.appendChild(data);
 
+      // console.log(activeUser);
+
+      
+      // console.log('Passed admin check')
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Selected'
+      header.appendChild(data);
+      
+
       const body = document.getElementById('main-table');
       body.innerHTML = '';
-      // Start here.
+      
       reimbursements.forEach(addReimbursement);
     })
     .catch(err => {
@@ -110,8 +137,53 @@ function retrievePending() {
     });
 }
 
+function processSelection(action) {
+  let selected = [];
+  let checks = document.querySelectorAll("input[type='checkbox']");
+  // console.log(checks)
+  for (let e of checks) {
+    // console.log(e.value);
+    if (e.checked) {
+      selected.push(e);
+    }
+  }
+  // console.log(selected)
+  for (let f of selected) {
+    if (action === "Approve") {
+      f.status = "Approved";
+    } else if (action === "Deny") {
+      f.status = "Denied";
+    } else {
+      f.status = "Pending"; // This is insurance
+    }
+  }
+  console.log(`Selected items: ${selected}`)
+  fetch('http://localhost:3001/admins/requests/approve-deny', {
+    body: JSON.stringify(selected),
+    headers: {
+      'content-type': 'application/json'
+    },
+    credentials: 'include',
+    method: 'PUT'
+  })
+  .then(resp => {
+    if (resp.status === 401 || resp.status === 403) {
+      alert('invalid permissions')
+      throw 'Invalid permissions';
+    }
+    return resp.json();
+  })
+  .then(data => {
+    alert('Success!') // this is horrible, never use alerts
+    window.location = '../users/index.html';
+  })
+  .catch(err => {
+    console.log(err);
+  });
+}
+
 function retrieveRequests() {
-  console.log(loadData());
+  // console.log(loadData());
   fetch(`http://localhost:3001/employees/username`, {credentials: 'include'})
     .then(resp => resp.json())    
     .then((reimbursements) => {
@@ -163,6 +235,9 @@ function addReimbursement(reimbursement) {
   const body = document.getElementById('main-table');
 
   let row = document.createElement('tr'); // create <tr>
+  // row.setAttribute("id", `entry-${i}`);
+  // console.log(row);
+  // console.log(row.id);
   
   let data = document.createElement('td'); // create <td>
   data.innerText = reimbursement.username; // assign value to the td
@@ -207,6 +282,23 @@ function addReimbursement(reimbursement) {
   data = document.createElement('th');
   data.innerText = 'Description';
   row.appendChild(data);
+
+  // let isAdmin = getCurrentUser().status === 'admin';
+  if (activeUser.role === 'admin') {
+    // console.log('Passed admin check')
+    let space = document.createElement('td');
+    data = document.createElement('div');
+    data.className = 'checkbox';
+    let label = document.createElement('label');
+    // label.setAttribute('for', 'selected');
+    let check = document.createElement('input');
+    check.setAttribute('value', '');
+    check.setAttribute('type', 'checkbox');
+    label.appendChild(check);
+    data.appendChild(label);
+    space.appendChild(data);
+    row.appendChild(space);
+  }
 
   body.appendChild(row);
 

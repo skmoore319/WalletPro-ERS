@@ -9,3 +9,7 @@ body {
 #main-menu {
   margin-top: 60px;
 }
+
+#selection-dropdown-menu {
+  left: -60px;
+}

@@ -118,6 +118,8 @@ export function viewRequestsByStatus(status: string): Promise<any> {
 
 // - Approve or deny selected requests (ADMIN)
 export function applyAction(status: string, username: string, reimbursement): Promise<any> {
+    console.log('Entered DAO')
+    console.log(reimbursement);
     return docClient.update({
         TableName: 'reimbursement',
         Key: {

@@ -167,14 +167,15 @@ adminMenuRouter.get('/requests/pending', (req:Request, resp:Response) => {
 });
 
 // To approve or deny selected requests
-adminMenuRouter.put('/:username/requests/approve-deny', (req:Request, resp:Response) => {
+adminMenuRouter.put('/requests/approve-deny', (req:Request, resp:Response) => {
     
     // Use a service to update selected requests to have new statuses, either approved or denied,
     // and include the name of the approver.
     let selection = req.body;
-    let adminName = req.params.username;
+    let adminName = req.session.username;
     let promises = [];
     for (let e of selection) {
+        console.log(`Now showing item: ${e}`)
         ersService.applyAction(e.status, adminName, e)
             .then(data => {
                 // Need to determine which response was processed
@@ -186,6 +187,7 @@ adminMenuRouter.put('/:username/requests/approve-deny', (req:Request, resp:Respo
                 // Otherwise, check the number of successes against the number of reimbursements,
                 // and send a response when the numbers match.
                 if(promises.length === selection.length) {
+                    console.log('Equal')
                     resp.end();
                 }
             })

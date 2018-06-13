@@ -17,7 +17,7 @@
   <link href="navbar.css" rel="stylesheet">
 </head>
 
-<body onload="getCurrentUser()" >
+<body onload="pullUser(); getCurrentUser();" >
   
   <div>
     <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
@@ -30,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav ml-auto margin-nav">
             <li class="nav-item active">
-              <a href"/users/skmoore" class="unset-anchor nav-link">Home</a>
+              <a href"/users/index.html" class="unset-anchor nav-link">Home</a>
             </li>
             <li class="nav-item active">
               <a href="/sign-in/index.html" class="unset-anchor nav-link">Log In</a>
@@ -50,8 +50,17 @@
             <li class="nav-item active dropdown">
             <a class="nav-link dropdown-toggle pointer" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selection</a>
               <div class="dropdown-menu" id="selection-dropdown-menu" aria-labelledby="dropdown04">
-                  <div class="dropdown-item"><Link to="/home" class="unset-anchor nav-link active">Approve</Link></div>
-                  <div class="dropdown-item"><Link to="/home" class="unset-anchor nav-link active">Deny</Link></div>
+                    <div class="dropdown-item">
+                        <a href="/users/index.html" class="unset-anchor nav-link active">
+                            <button class="btn btn-primary" >Approve</button>
+                        </a>
+                    </div>
+                    <div class="dropdown-item">
+                            <!-- <button class="btn btn-danger" onclick="processSelection(this.innerText);" >Deny</button> -->
+                        <a href="/users/index.html" class="unset-anchor nav-link active">
+                            <button class="btn btn-danger" onclick="processSelection(this.innerText);" >Deny</button>
+                        </a>
+                    </div>
               </div>
             </li>
         </ul>
