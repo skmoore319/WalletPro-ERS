@@ -181,23 +181,49 @@ function processSelection(action) {
       // selected.push(targetReimbursement);
     }
   }
-  console.log(selected)
-  console.log(action);
-  console.log(selected[0].status)
-  for (let f = 0; f < selected.length; f++) {
+  // console.log(selected)
+  // console.log(selected[0])
+  // console.log(action);
+  let test = [
+    {
+      timeSubmitted: 1528909570460,
+      username: "jscript",
+      receipts: [],
+      items: [
+          {
+              description: "Work tools",
+              amount: 37,
+              title: "tools1",
+              type: "OTHER",
+              dateOfExpense: 1527724800000
+          },
+          {
+              description: "Gas to Orlando",
+              amount: 49,
+              title: "travel7",
+              type: "TRAVEL",
+              dateOfExpense: 1527811200000
+          }
+      ],
+      status: "Pending",
+      approver: "none"
+  }
+]
+  for (let f of test) {
     console.log(f);
     if (action === "Approve") {
-      selected[f].status = "Approved";
+      f.status = "Approved";
     } else if (action === "Deny") {
       console.log('Entered Denied')
-      selected[f].status = "Denied";
+      f.status = "Denied";
     } else {
-      selected[f].status = "Pending"; // This is insurance
+      f.status = "Pending"; // This is insurance
     }
   }
-  console.log(`Selected items: ${selected}`)
+  console.log(`Selected items: ${test[0].status}`)
+  
   fetch('http://localhost:3001/admins/requests/approve-deny', {
-    body: JSON.stringify(selected),
+    body: JSON.stringify(test),
     headers: {
       'content-type': 'application/json'
     },
@@ -205,16 +231,18 @@ function processSelection(action) {
     method: 'PUT'
   })
   .then(resp => {
-    if (resp.status === 401 || resp.status === 403) {
-      alert('invalid permissions')
-      throw 'Invalid permissions';
-    }
-    return resp.json();
-  })
-  .then(data => {
     alert('Success!') // this is horrible, never use alerts
     window.location = '../users/index.html';
+    // if (resp.status === 401 || resp.status === 403) {
+    //   alert('invalid permissions')
+    //   throw 'Invalid permissions';
+    // }
+    // return resp.json();
   })
+  // .then(data => {
+  //   alert('Success!') // this is horrible, never use alerts
+  //   window.location = '../users/index.html';
+  // })
   .catch(err => {
     console.log(err);
   });
@@ -292,14 +320,17 @@ function addReimbursement(reimbursement) {
   row.appendChild(data);
   
   data = document.createElement('td');
+  data.className = "num-items";
   data.innerText = reimbursement.items.length;
   row.appendChild(data);
   
   data = document.createElement('td');
+  data.class = "request-status"
   data.innerText = reimbursement.status;
   row.appendChild(data);
   
   data = document.createElement('td');
+  data.class = "approving-admin"
   data.innerText = reimbursement.approver;
   row.appendChild(data);
 
