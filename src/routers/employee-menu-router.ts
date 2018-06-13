@@ -59,9 +59,9 @@ employeeMenuRouter.get('/username', (req:Request, resp:Response) => {
 employeeMenuRouter.get('/username/identify', (req:Request, resp:Response) => {
     ersService.userExists(req.session.username)
     .then(data => {
-        console.log(data)
+        // console.log(data)
         let targetUser = data.Items[0];
-        console.log(targetUser);
+        // console.log(targetUser);
         resp.json(data.Items[0]);
     }).catch(err => {
         console.log(err);

@@ -11,6 +11,10 @@ export function userExists(username: string) {
 //     return ersDao.identifyUser(username);
 // }
 
+export function getSpecificReimbursement(username: string, timeStamp: number) {
+    return ersDao.getSpecificReimbursement(username, timeStamp);
+}
+
 // If the user is an employee, this function will show all reimbursement requests
 // under the employee's username
 // If the user is an admin, this function will show all reimbursement requests submitted

@@ -1,5 +1,5 @@
 import express from 'express';
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction, json } from 'express';
 import * as ersService from '../services/ers-service';
 
 export const adminMenuRouter = express.Router();
@@ -142,6 +142,19 @@ adminMenuRouter.get('/:username/users/:employeeUsername', (req:Request, resp:Res
     // resp.json(reimburseHistory);
     // resp.end();
 });
+
+adminMenuRouter.get('/requests/:username/:timeStamp', (req:Request, resp:Response) => {
+    let searchTerms = req.params;
+    ersService.getSpecificReimbursement(req.params.username, Number.parseInt(req.params.timeStamp))
+        .then(data => {
+            // console.log(`Match found: ${data.Items.json}`)
+            resp.json(data.Items);
+        })
+        .catch(err => {
+            console.log(err);
+            resp.sendStatus(500);
+        })
+})
 
 // To get all pending requests
 let allPending = [];

@@ -116,6 +116,21 @@ export function viewRequestsByStatus(status: string): Promise<any> {
     }).promise();
 }
 
+export function getSpecificReimbursement(username: string, timeStamp: number): Promise<any> {
+    return docClient.query({
+        TableName: 'reimbursement',
+        KeyConditionExpression: '#usr = :usename AND #time = :inputTime',
+        ExpressionAttributeNames: {
+            '#usr': 'username',
+            '#time': 'timeSubmitted'
+        },
+        ExpressionAttributeValues: {
+            ':usename': username,
+            ':inputTime': timeStamp
+        }
+    }).promise();
+}
+
 // - Approve or deny selected requests (ADMIN)
 export function applyAction(status: string, username: string, reimbursement): Promise<any> {
     console.log('Entered DAO')

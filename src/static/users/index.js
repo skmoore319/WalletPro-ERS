@@ -137,24 +137,62 @@ function retrievePending() {
     });
 }
 
+let targetReimbursement;
+function findReimbursement(username, timeStamp) {
+  fetch(`http://localhost:3001/admins/requests/${username}/${timeStamp}`, {credentials: 'include'})
+  .then(resp =>  resp.json())
+  .then((targets) => {
+    console.log(targets);
+    targetReimbursement = targets[0];
+    console.log(targetReimbursement);
+    return targets[0];
+  })
+  .catch(err => {
+    console.log(err);
+  });
+}
+
 function processSelection(action) {
+  console.log('entered processSelection()')
   let selected = [];
   let checks = document.querySelectorAll("input[type='checkbox']");
-  // console.log(checks)
+  console.log(checks)
   for (let e of checks) {
-    // console.log(e.value);
+    console.log(e.value);
     if (e.checked) {
-      selected.push(e);
+      // Need to get the reimbursement item from the associated checkbox element
+      let searchScope = e.parentElement.parentElement.parentElement.parentElement.parentElement;
+      let searchKey = searchScope.getElementsByClassName("partition-key")[0];
+      let searchElement = searchScope.getElementsByClassName("sort-key")[0];
+      // targetReimbursement = findReimbursement(searchKey.innerText, searchElement.id);
+      fetch(`http://localhost:3001/admins/requests/${searchKey.innerText}/${searchElement.id}`, {credentials: 'include'})
+        .then(resp =>  resp.json())
+        .then((targets) => {
+          console.log(targets);
+          targetReimbursement = targets[0];
+          // console.log(targetReimbursement);
+          selected.push(targets[0]);
+          // console.log(selected)
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      // console.log(targetReimbursement);
+      // selected.push(targetReimbursement);
     }
   }
-  // console.log(selected)
-  for (let f of selected) {
+  console.log(selected)
+  console.log(action);
+  console.log(selected[0].status)
+  for (let f = 0; f < selected.length; f++) {
+    console.log(f);
     if (action === "Approve") {
-      f.status = "Approved";
+      selected[f].status = "Approved";
     } else if (action === "Deny") {
-      f.status = "Denied";
+      console.log('Entered Denied')
+      selected[f].status = "Denied";
     } else {
-      f.status = "Pending"; // This is insurance
+      selected[f].status = "Pending"; // This is insurance
     }
   }
   console.log(`Selected items: ${selected}`)
@@ -240,11 +278,16 @@ function addReimbursement(reimbursement) {
   // console.log(row.id);
   
   let data = document.createElement('td'); // create <td>
+  data.className = "partition-key";
   data.innerText = reimbursement.username; // assign value to the td
   row.appendChild(data); // append the td to the row
   
   data = document.createElement('td');
   let options = { month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" };
+  data.className = "sort-key";
+  // Now here's a REAL kludge: let's store the numeric value of this date in the id of this element so we can
+  // use it to search the database if we need to!
+  data.setAttribute('id', reimbursement.timeSubmitted.toString());
   data.innerText = new Date(reimbursement.timeSubmitted).toLocaleDateString("en-US", options);
   row.appendChild(data);
   
@@ -259,6 +302,23 @@ function addReimbursement(reimbursement) {
   data = document.createElement('td');
   data.innerText = reimbursement.approver;
   row.appendChild(data);
+
+  // let isAdmin = getCurrentUser().status === 'admin';
+  if (activeUser.role === 'admin') {
+    // console.log('Passed admin check')
+    let space = document.createElement('td');
+    data = document.createElement('div');
+    data.className = 'checkbox';
+    let label = document.createElement('label');
+    // label.setAttribute('for', 'selected');
+    let check = document.createElement('input');
+    check.setAttribute('value', '');
+    check.setAttribute('type', 'checkbox');
+    label.appendChild(check);
+    data.appendChild(label);
+    space.appendChild(data);
+    row.appendChild(space);
+  }
   
   body.appendChild(row); // append the row to the body
 
@@ -282,23 +342,6 @@ function addReimbursement(reimbursement) {
   data = document.createElement('th');
   data.innerText = 'Description';
   row.appendChild(data);
-
-  // let isAdmin = getCurrentUser().status === 'admin';
-  if (activeUser.role === 'admin') {
-    // console.log('Passed admin check')
-    let space = document.createElement('td');
-    data = document.createElement('div');
-    data.className = 'checkbox';
-    let label = document.createElement('label');
-    // label.setAttribute('for', 'selected');
-    let check = document.createElement('input');
-    check.setAttribute('value', '');
-    check.setAttribute('type', 'checkbox');
-    label.appendChild(check);
-    data.appendChild(label);
-    space.appendChild(data);
-    row.appendChild(space);
-  }
 
   body.appendChild(row);
 
