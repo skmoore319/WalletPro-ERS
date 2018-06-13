@@ -162,21 +162,39 @@ function processSelection(action) {
     if (e.checked) {
       // Need to get the reimbursement item from the associated checkbox element
       let searchScope = e.parentElement.parentElement.parentElement.parentElement.parentElement;
-      let searchKey = searchScope.getElementsByClassName("partition-key")[0];
-      let searchElement = searchScope.getElementsByClassName("sort-key")[0];
+      let searchKey = searchScope.getElementsByClassName("partition-key")[0].innerText;
+      let searchElement = searchScope.getElementsByClassName("sort-key")[0].id;
+      let numItems = searchScope.getElementsByClassName("num-items")[0].innerText;
+      let newStatus = searchScope.getElementsByClassName("request-status")[0].innerText;
+      let approvingAdmin = searchScope.getElementsByClassName("approving-admin")[0].innerText;
+      let currentItems = [];
+      let itemRows = document.getElementsByClassName(`${searchKey} ${searchElement}`);
+      console.log(itemRows);
+      for (let r of itemRows) {
+        let nextItem = {
+          description: r.getElementsByClassName('item-description')[0].innerText,
+          amount: Number.parseInt(r.getElementsByClassName('item-amount')[0].innerText),
+          title: r.getElementsByClassName('item-title')[0].innerText,
+          type: r.getElementsByClassName('item-type')[0].innerText,
+          dateOfExpense: r.getElementsByClassName('date-of-expense')[0].innerText
+        }
+        console.log(nextItem);
+        currentItems.push(nextItem);
+      }
+      console.log(currentItems);
       // targetReimbursement = findReimbursement(searchKey.innerText, searchElement.id);
-      fetch(`http://localhost:3001/admins/requests/${searchKey.innerText}/${searchElement.id}`, {credentials: 'include'})
-        .then(resp =>  resp.json())
-        .then((targets) => {
-          console.log(targets);
-          targetReimbursement = targets[0];
-          // console.log(targetReimbursement);
-          selected.push(targets[0]);
-          // console.log(selected)
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      // fetch(`http://localhost:3001/admins/requests/${searchKey.innerText}/${searchElement.id}`, {credentials: 'include'})
+      //   .then(resp =>  resp.json())
+      //   .then((targets) => {
+      //     console.log(targets);
+      //     targetReimbursement = targets[0];
+      //     // console.log(targetReimbursement);
+      //     selected.push(targets[0]);
+      //     // console.log(selected)
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
       // console.log(targetReimbursement);
       // selected.push(targetReimbursement);
     }
@@ -184,68 +202,69 @@ function processSelection(action) {
   // console.log(selected)
   // console.log(selected[0])
   // console.log(action);
-  let test = [
-    {
-      timeSubmitted: 1528909570460,
-      username: "jscript",
-      receipts: [],
-      items: [
-          {
-              description: "Work tools",
-              amount: 37,
-              title: "tools1",
-              type: "OTHER",
-              dateOfExpense: 1527724800000
-          },
-          {
-              description: "Gas to Orlando",
-              amount: 49,
-              title: "travel7",
-              type: "TRAVEL",
-              dateOfExpense: 1527811200000
-          }
-      ],
-      status: "Pending",
-      approver: "none"
-  }
-]
-  for (let f of test) {
-    console.log(f);
-    if (action === "Approve") {
-      f.status = "Approved";
-    } else if (action === "Deny") {
-      console.log('Entered Denied')
-      f.status = "Denied";
-    } else {
-      f.status = "Pending"; // This is insurance
-    }
-  }
-  console.log(`Selected items: ${test[0].status}`)
   
-  fetch('http://localhost:3001/admins/requests/approve-deny', {
-    body: JSON.stringify(test),
-    headers: {
-      'content-type': 'application/json'
-    },
-    credentials: 'include',
-    method: 'PUT'
-  })
-  .then(resp => {
-    alert('Success!') // this is horrible, never use alerts
-    window.location = '../users/index.html';
-    // if (resp.status === 401 || resp.status === 403) {
-    //   alert('invalid permissions')
-    //   throw 'Invalid permissions';
-    // }
-    // return resp.json();
-  })
-  // .then(data => {
-  //   alert('Success!') // this is horrible, never use alerts
-  //   window.location = '../users/index.html';
-  // })
-  .catch(err => {
-    console.log(err);
-  });
+//   let test = [
+//     {
+//       timeSubmitted: 1528909570460,
+//       username: "jscript",
+//       receipts: [],
+//       items: [
+//           {
+//               description: "Work tools",
+//               amount: 37,
+//               title: "tools1",
+//               type: "OTHER",
+//               dateOfExpense: 1527724800000
+//           },
+//           {
+//               description: "Gas to Orlando",
+//               amount: 49,
+//               title: "travel7",
+//               type: "TRAVEL",
+//               dateOfExpense: 1527811200000
+//           }
+//       ],
+//       status: "Pending",
+//       approver: "none"
+//   }
+// ]
+//   for (let f of test) {
+//     console.log(f);
+//     if (action === "Approve") {
+//       f.status = "Approved";
+//     } else if (action === "Deny") {
+//       console.log('Entered Denied')
+//       f.status = "Denied";
+//     } else {
+//       f.status = "Pending"; // This is insurance
+//     }
+//   }
+//   console.log(`Selected items: ${test[0].status}`)
+  
+//   fetch('http://localhost:3001/admins/requests/approve-deny', {
+//     body: JSON.stringify(test),
+//     headers: {
+//       'content-type': 'application/json'
+//     },
+//     credentials: 'include',
+//     method: 'PUT'
+//   })
+//   .then(resp => {
+//     alert('Success!') // this is horrible, never use alerts
+//     window.location = '../users/index.html';
+//     // if (resp.status === 401 || resp.status === 403) {
+//     //   alert('invalid permissions')
+//     //   throw 'Invalid permissions';
+//     // }
+//     // return resp.json();
+//   })
+//   // .then(data => {
+//   //   alert('Success!') // this is horrible, never use alerts
+//   //   window.location = '../users/index.html';
+//   // })
+//   .catch(err => {
+//     console.log(err);
+//   });
 }
 
 function retrieveRequests() {
@@ -325,12 +344,12 @@ function addReimbursement(reimbursement) {
   row.appendChild(data);
   
   data = document.createElement('td');
-  data.class = "request-status"
+  data.className = "request-status"
   data.innerText = reimbursement.status;
   row.appendChild(data);
   
   data = document.createElement('td');
-  data.class = "approving-admin"
+  data.className = "approving-admin"
   data.innerText = reimbursement.approver;
   row.appendChild(data);
 
@@ -376,30 +395,43 @@ function addReimbursement(reimbursement) {
 
   body.appendChild(row);
 
-  reimbursement.items.forEach(addItem);
+  for (let i of reimbursement.items) {
+    addItem(i, reimbursement.username, reimbursement.timeSubmitted);
+  }
+
+  // reimbursement.items.forEach(addItem, reimbursement.username, reimbursement.timeSubmitted);
 }
 
-function addItem(item) {
+function addItem(item, username, timeStamp) {
+  console.log(item);
+  console.log(username);
+  console.log(timeStamp);
   const body = document.getElementById('main-table');
   const row = document.createElement('tr');
+  row.classList.add(`${username}`, `${timeStamp.toString()}`);
 
   let data = document.createElement('td');
+  data.className = 'date-of-expense';
   data.innerText = item.timeOfExpense;
   row.appendChild(data);
 
   data = document.createElement('td');
+  data.className = 'item-title';
   data.innerText = item.title;
   row.appendChild(data);
 
   data = document.createElement('td');
+  data.className = 'item-amount';
   data.innerText = item.amount;
   row.appendChild(data);
 
   data = document.createElement('td');
+  data.className = 'item-type';
   item.type ? data.innerText = item.type: data.innerText = '-N/A-';
   row.appendChild(data);
 
   data = document.createElement('td');
+  data.className = 'item-description';
   data.innerText = item.description;
   row.appendChild(data);
 
