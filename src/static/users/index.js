@@ -158,30 +158,33 @@ function processSelection(action) {
   let checks = document.querySelectorAll("input[type='checkbox']");
   console.log(checks)
   for (let e of checks) {
-    console.log(e.value);
+    // console.log(e.value);
     if (e.checked) {
       // Need to get the reimbursement item from the associated checkbox element
-      let searchScope = e.parentElement.parentElement.parentElement.parentElement.parentElement;
+      let searchScope = e.parentElement.parentElement.parentElement.parentElement;
       let searchKey = searchScope.getElementsByClassName("partition-key")[0].innerText;
       let searchElement = searchScope.getElementsByClassName("sort-key")[0].id;
+      console.log(searchScope.getElementsByClassName("sort-key"));
       let numItems = searchScope.getElementsByClassName("num-items")[0].innerText;
       let newStatus = searchScope.getElementsByClassName("request-status")[0].innerText;
       let approvingAdmin = searchScope.getElementsByClassName("approving-admin")[0].innerText;
       let currentItems = [];
       let itemRows = document.getElementsByClassName(`${searchKey} ${searchElement}`);
-      console.log(itemRows);
+      // console.log(itemRows);
       for (let r of itemRows) {
+        // console.log(r.getElementsByClassName('date-of-expense')[0].firstChild.nextSibling.innerText);
+        
         let nextItem = {
           description: r.getElementsByClassName('item-description')[0].innerText,
           amount: Number.parseInt(r.getElementsByClassName('item-amount')[0].innerText),
           title: r.getElementsByClassName('item-title')[0].innerText,
           type: r.getElementsByClassName('item-type')[0].innerText,
-          dateOfExpense: r.getElementsByClassName('date-of-expense')[0].innerText
+          dateOfExpense: Number.parseInt(r.getElementsByClassName('date-of-expense')[0].firstChild.nextSibling.innerText)
         }
-        console.log(nextItem);
+        // console.log(nextItem);
         currentItems.push(nextItem);
       }
-      console.log(currentItems);
+      // console.log(currentItems);
       // targetReimbursement = findReimbursement(searchKey.innerText, searchElement.id);
       // fetch(`http://localhost:3001/admins/requests/${searchKey.innerText}/${searchElement.id}`, {credentials: 'include'})
       //   .then(resp =>  resp.json())
@@ -196,10 +199,18 @@ function processSelection(action) {
       //     console.log(err);
       //   });
       // console.log(targetReimbursement);
-      // selected.push(targetReimbursement);
+      let targetReimbursement = {
+        timeSubmitted: Number.parseInt(searchElement),
+        username: searchKey,
+        receipts: [],
+        items: currentItems,
+        status: newStatus,
+        approver: activeUser.username
+      }
+      selected.push(targetReimbursement);
     }
   }
-  // console.log(selected)
+  console.log(selected)
   // console.log(selected[0])
   // console.log(action);
   
@@ -228,43 +239,44 @@ function processSelection(action) {
 //       approver: "none"
 //   }
 // ]
-//   for (let f of test) {
-//     console.log(f);
-//     if (action === "Approve") {
-//       f.status = "Approved";
-//     } else if (action === "Deny") {
-//       console.log('Entered Denied')
-//       f.status = "Denied";
-//     } else {
-//       f.status = "Pending"; // This is insurance
-//     }
-//   }
-//   console.log(`Selected items: ${test[0].status}`)
+  for (let f of selected) {
+    console.log(f);
+    if (action === "Approve") {
+      f.status = "Approved";
+    } else if (action === "Deny") {
+      console.log('Entered Denied')
+      f.status = "Denied";
+    } else {
+      f.status = "Pending"; // This is insurance
+    }
+  }
+  // console.log(`Selected items: ${selected[0].status}`)
+  // console.log(selected[0])
   
-//   fetch('http://localhost:3001/admins/requests/approve-deny', {
-//     body: JSON.stringify(test),
-//     headers: {
-//       'content-type': 'application/json'
-//     },
-//     credentials: 'include',
-//     method: 'PUT'
-//   })
-//   .then(resp => {
-//     alert('Success!') // this is horrible, never use alerts
-//     window.location = '../users/index.html';
-//     // if (resp.status === 401 || resp.status === 403) {
-//     //   alert('invalid permissions')
-//     //   throw 'Invalid permissions';
-//     // }
-//     // return resp.json();
-//   })
-//   // .then(data => {
-//   //   alert('Success!') // this is horrible, never use alerts
-//   //   window.location = '../users/index.html';
-//   // })
-//   .catch(err => {
-//     console.log(err);
-//   });
+  fetch('http://localhost:3001/admins/requests/approve-deny', {
+    body: JSON.stringify(selected),
+    headers: {
+      'content-type': 'application/json'
+    },
+    credentials: 'include',
+    method: 'PUT'
+  })
+  .then(resp => {
+    alert('Success!') // this is horrible, never use alerts
+    window.location = '../users/index.html';
+    // if (resp.status === 401 || resp.status === 403) {
+    //   alert('invalid permissions')
+    //   throw 'Invalid permissions';
+    // }
+    // return resp.json();
+  })
+  // .then(data => {
+  //   alert('Success!') // this is horrible, never use alerts
+  //   window.location = '../users/index.html';
+  // })
+  .catch(err => {
+    console.log(err);
+  });
 }
 
 function retrieveRequests() {
@@ -412,7 +424,11 @@ function addItem(item, username, timeStamp) {
 
   let data = document.createElement('td');
   data.className = 'date-of-expense';
-  data.innerText = item.timeOfExpense;
+  item.dateOfExpense ? data.innerText = item.dateOfExpense : data.innerText = item.timeOfExpense;
+  let tag = document.createElement('div');
+  item.dateOfExpense ? tag.innerText = item.dateOfExpense : tag.innerText = item.timeOfExpense;
+  tag.setAttribute('hidden', 'true');
+  data.appendChild(tag);
   row.appendChild(data);
 
   data = document.createElement('td');

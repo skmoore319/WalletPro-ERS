@@ -132,7 +132,7 @@ export function getSpecificReimbursement(username: string, timeStamp: number): P
 }
 
 // - Approve or deny selected requests (ADMIN)
-export function applyAction(status: string, username: string, reimbursement): Promise<any> {
+export function applyAction(reimbursement): Promise<any> {
     console.log('Entered DAO')
     console.log(reimbursement);
     return docClient.update({
@@ -147,8 +147,8 @@ export function applyAction(status: string, username: string, reimbursement): Pr
             '#appr': 'approver'
         },
         ExpressionAttributeValues: {
-            ':targetStat': status,
-            ':adName': username
+            ':targetStat': reimbursement.status,
+            ':adName': reimbursement.approver
         }
     }).promise();
 }

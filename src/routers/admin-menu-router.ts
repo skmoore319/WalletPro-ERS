@@ -185,11 +185,12 @@ adminMenuRouter.put('/requests/approve-deny', (req:Request, resp:Response) => {
     // Use a service to update selected requests to have new statuses, either approved or denied,
     // and include the name of the approver.
     let selection = req.body;
+    console.log(selection)
     let adminName = req.session.username;
     let promises = [];
     for (let e of selection) {
         console.log(`Now showing item: ${e}`)
-        ersService.applyAction(e.status, adminName, e)
+        ersService.applyAction(e)
             .then(data => {
                 // Need to determine which response was processed
                 // Add to an array of booleans.

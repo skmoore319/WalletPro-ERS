@@ -36,6 +36,6 @@ export function viewRequestsByStatus(status: string) {
 }
 
 // For admins. Change the status of selected requests to either "Approved" or "Denied"
-export function applyAction(status:string, username:string, reimbursement) {
-    return ersDao.applyAction(status, username, reimbursement);
+export function applyAction(reimbursement) {
+    return ersDao.applyAction(reimbursement);
 }
