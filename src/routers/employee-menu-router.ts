@@ -7,36 +7,36 @@ import * as ersService from '../services/ers-service';
 export const employeeMenuRouter = express.Router();
 
 // For testing HTTP requests and file writing
-let reimbursementItem1 =
-{
-    title: "food1",
-    amount: 20.47,
-    description: "FOOD",
-    timeOfExpense: Date.now()
-};
+// let reimbursementItem1 =
+// {
+//     title: "food1",
+//     amount: 20.47,
+//     description: "FOOD",
+//     timeOfExpense: Date.now()
+// };
 
-let reimbursementItem2 =
-{
-    title: "lodging1",
-    amount: 75,
-    description: "LODGING",
-    timeOfExpense: Date.now()
-};
+// let reimbursementItem2 =
+// {
+//     title: "lodging1",
+//     amount: 75,
+//     description: "LODGING",
+//     timeOfExpense: Date.now()
+// };
 
-let reimbursement = 
-{
-    username: "skmoore",
-    timeSubmitted: Date.now(),
-    items: [reimbursementItem1, reimbursementItem2],
-    approver: "admin",
-    status: "Pending",
-    receipts: []
-};
+// let reimbursement = 
+// {
+//     username: "skmoore",
+//     timeSubmitted: Date.now(),
+//     items: [reimbursementItem1, reimbursementItem2],
+//     approver: "admin",
+//     status: "Pending",
+//     receipts: []
+// };
 
-let myReimbursements =
-[
-    reimbursement
-];
+// let myReimbursements =
+// [
+//     reimbursement
+// ];
 
 // To index page containing all reimbursement requests for the employee
 employeeMenuRouter.get('/username', (req:Request, resp:Response) => {
@@ -51,8 +51,6 @@ employeeMenuRouter.get('/username', (req:Request, resp:Response) => {
             console.log(err);
             resp.sendStatus(500);
         });
-    // resp.json(myReimbursements);
-    // resp.end();
 });
 
 // Show the main menu for a logged in employee
@@ -84,7 +82,7 @@ employeeMenuRouter.post('/submit', (req:Request, resp:Response) => {
     };
     let targetUser = req.session.username;
 
-    console.log(req.body);
+    // console.log(req.body);
 
     ersService.submitRequest(nextReimbursement)
         .then(data => {
@@ -94,25 +92,4 @@ employeeMenuRouter.post('/submit', (req:Request, resp:Response) => {
             console.log(err);
             resp.sendStatus(500);
         })
-
-    // if(!(req.body.username && req.body.items)) {
-    //     resp.sendStatus(400);
-    // } else {
-    //     let itemsToAdd = [];
-    //     for (let i of req.body.items) {
-    //         itemsToAdd.push(i);
-    //     }
-    //     let newReimbursement =
-    //     {
-    //         username: req.body.username,
-    //         timeSubmitted: Date.now(),
-    //         items: itemsToAdd,
-    //         approver: "admin",
-    //         status: "Pending",
-    //         receipts: []
-    //     };
-    //     myReimbursements.push(newReimbursement);
-    //     resp.sendStatus(201);
-    //     resp.end();
-    // }
 });

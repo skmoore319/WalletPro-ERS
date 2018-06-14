@@ -42,7 +42,6 @@ function login() {
     throw 'Unable to login at this time, please try again later';
   })
   .then(data => {
-    console.log(data.body);
     window.location = '../users/index.html';
   })
   .catch(err => {
@@ -62,7 +61,6 @@ function logout() {
   })
   .then(resp => {
     if (resp.status === 200) {
-      // console.log(resp.json());
       return resp.json();
     }
     throw 'Unable to logout at this time, please try again later';

@@ -11,9 +11,7 @@ export const loginRouter = express.Router();
  */
 loginRouter.post('/login', (req, resp, next) => {
 
-    // console.log('Reached login post')
   const user = req.body && req.body;
-//   console.log(user);
 
   // should probably send a call to the db to get the actual user object to determine role
   // Query the database to see if a username exists in the database
@@ -22,44 +20,21 @@ loginRouter.post('/login', (req, resp, next) => {
         
     ersService.userExists(req.body.username)
         .then(data => {
-            // console.log(data)
             let targetUser = data.Items[0];
-            // console.log(targetUser);
-            // resp.json(data.Items[0]);
             if (targetUser.password === req.body.password) {
-                // console.log(`Reached successful login`)
-                // console.log(targetUser.username)
                 req.session.role = targetUser.role;
                 req.session.username = targetUser.username;
-                // console.log(req.session.role)
                 resp.json({
                     username: 'skmoore',
                     role: 'employee'
                 });
             } else {
-                // console.log(`Reached invalid login`)
                 resp.sendStatus(401);
             }
         }).catch(err => {
             console.log(err);
             resp.sendStatus(404);
         })
-
-    // if (req.body.username === 'admin' && req.body.password === 'admin') {
-    //     req.session.role = 'admin';
-    //     resp.json({
-    //     username: 'admin',
-    //     role: 'admin'
-    //     });
-    // } else if (req.body.username === 'blake' && req.body.password === 'pass') {
-    //     req.session.role = 'employee';
-    //     resp.json({
-    //     username: 'blake',
-    //     role: 'employee'
-    //     });
-    // } else {
-    //     resp.sendStatus(401);
-    // }
 });
 
 /**
