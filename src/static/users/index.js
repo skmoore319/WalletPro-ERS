@@ -46,14 +46,31 @@ function getCurrentUser() {
     .then(resp => resp.json())
     .then((user) => {
       // console.log(user);
-      const body = document.getElementById('main-menu');
+      let greetingPanel = document.getElementById('greeting-panel');
+      // const body = document.getElementById('main-menu');
       let elem = document.createElement('h1');
       elem.innerText = `Hello, ${user.firstName}`;
       if (user.username === 'boss') {elem.innerText += ` ${user.lastName}`;}
-      body.appendChild(elem);
+      greetingPanel.appendChild(elem);
       // console.log(user.role);
-      if (user.role === 'admin') {retrievePending();}
-      else {retrieveRequests()};
+      if (user.role === 'admin') {
+        let barList = document.getElementById("nav-list");
+        
+        buildDropdown();
+        retrievePending();
+      }
+      else {
+        let barList = document.getElementById('nav-list');
+        let itemContainer = document.createElement('li');
+        itemContainer.className = 'nav-item active';
+        let submitLink = document.createElement('a')
+        submitLink.className = 'unset-anchor nav-link';
+        submitLink.setAttribute('href', '/add-request/index.html');
+        submitLink.innerText = 'Submit New Request';
+        itemContainer.appendChild(submitLink);
+        barList.appendChild(itemContainer);
+        retrieveRequests();
+      }
     })
     .catch(err => {
       console.log(err);
@@ -62,6 +79,63 @@ function getCurrentUser() {
     });
     
 }
+
+function buildDropdown() {
+  // <li class="nav-item active dropdown">
+  //   <a class="nav-link dropdown-toggle pointer" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selection</a>
+  //   <div class="dropdown-menu" id="selection-dropdown-menu" aria-labelledby="dropdown04">
+  //         <div class="dropdown-item">
+  //                 <button class="btn btn-primary" onclick="processSelection(this.innerText);" >Approve</button>
+  //             <!-- <a href="/users/index.html" class="unset-anchor nav-link active">
+  //                 <button class="btn btn-primary" onclick="processSelection(this.innerText);" >Approve</button>
+  //             </a> -->
+  //         </div>
+  //         <div class="dropdown-item">
+  //                 <button class="btn btn-danger" onclick="processSelection(this.innerText);" >Deny</button>
+  //             <!-- <a href="/users/index.html" class="unset-anchor nav-link active">
+  //                 <button class="btn btn-danger" onclick="processSelection(this.innerText);" >Deny</button>
+  //             </a> -->
+  //         </div>
+  //   </div>
+  // </li>
+  let barList = document.getElementById('nav-list');
+  let itemContainer = document.createElement('li');
+  itemContainer.className = 'nav-item active dropdown';
+  barList.appendChild(itemContainer);
+  let dropLink = document.createElement('a');
+  dropLink.className = 'nav-link dropdown-toggle pointer';
+  dropLink.id = 'dropdown04';
+  dropLink.setAttribute('data-toggle', 'dropdown');
+  dropLink.setAttribute('aria-haspopup', 'true');
+  dropLink.setAttribute('aria-expanded', 'false');
+  dropLink.innerText = "Selection"
+  itemContainer.appendChild(dropLink);
+  let dropMenu = document.createElement('div');
+  dropMenu.className = 'dropdown-menu';
+  dropMenu.id = 'selection-dropdown-menu';
+  dropMenu.setAttribute('aria-labelledby', 'dropdown04');
+  itemContainer.appendChild(dropMenu);
+  
+  let nextItem = document.createElement('div');
+  nextItem.className = 'dropdown-item';
+  dropMenu.appendChild(nextItem);
+  let approveButton = document.createElement('button');
+  approveButton.className = 'btn btn-primary';
+  approveButton.setAttribute('onclick', 'processSelection(this.innerText);');
+  approveButton.innerText = 'Approve';
+  nextItem.appendChild(approveButton);
+  
+  nextItem = document.createElement('div');
+  nextItem.className = 'dropdown-item';
+  dropMenu.appendChild(nextItem);
+  let denyButton = document.createElement('button');
+  denyButton.className = 'btn btn-danger';
+  denyButton.setAttribute('onclick', 'processSelection(this.innerText);');
+  denyButton.innerText = 'Deny';
+  nextItem.appendChild(denyButton);
+  
+}
+
 let activeUser;
 function pullUser() {
   fetch('http://localhost:3001/employees/username/identify', {credentials: 'include'})
@@ -143,11 +217,14 @@ function retrievePending() {
 
       // console.log(activeUser)
       
-      const mainCount = document.getElementById('main-menu');
+      let greetingPanel = document.getElementById('greeting-panel');
       let elem = document.createElement('h2');
       elem.innerText = `You have ${reimbursements.length} pending requests`
-      mainCount.appendChild(elem);
+      greetingPanel.appendChild(elem);
       const header = document.getElementById('table-head-row');
+
+      // Sort the reimbursements into descending order
+      reimbursements.sort((a, b) => {return b.timeSubmitted - a.timeSubmitted});
 
       let data = document.createElement('th');
       data.setAttribute("scope", "col");
@@ -187,7 +264,10 @@ function retrievePending() {
       const body = document.getElementById('main-table');
       body.innerHTML = '';
       
-      reimbursements.forEach(addReimbursement);
+      for (let r of reimbursements) {
+        addReimbursement(r, reimbursements.indexOf(r))
+      }
+      // reimbursements.forEach(addReimbursement);
     })
     .catch(err => {
       console.log(err);
@@ -321,7 +401,7 @@ function processSelection(action) {
     method: 'PUT'
   })
   .then(resp => {
-    alert('Success!') // this is horrible, never use alerts
+    // alert('Success!') // this is horrible, never use alerts
     window.location = '../users/index.html';
     // if (resp.status === 401 || resp.status === 403) {
     //   alert('invalid permissions')
@@ -343,11 +423,13 @@ function retrieveRequests() {
   fetch(`http://localhost:3001/employees/username`, {credentials: 'include'})
     .then(resp => resp.json())    
     .then((reimbursements) => {
-      const mainCount = document.getElementById('main-menu');
+      let greetingPanel = document.getElementById('greeting-panel');
       let elem = document.createElement('h2');
       elem.innerText = `You have submitted ${reimbursements.length} requests`
-      mainCount.appendChild(elem);
+      greetingPanel.appendChild(elem);
       const header = document.getElementById('table-head-row');
+
+      reimbursements.sort((a, b) => {return b.timeSubmitted - a.timeSubmitted});
 
       let data = document.createElement('th');
       data.setAttribute("scope", "col");
@@ -377,7 +459,10 @@ function retrieveRequests() {
       const body = document.getElementById('main-table');
       body.innerHTML = '';
       // Start here.
-      reimbursements.forEach(addReimbursement);
+      for (let r of reimbursements) {
+        addReimbursement(r, reimbursements.indexOf(r))
+      }
+      // reimbursements.forEach(addReimbursement);
     })
     .catch(err => {
       console.log(err);
@@ -387,10 +472,13 @@ function retrieveRequests() {
     
 }
 
-function addReimbursement(reimbursement) {
+function addReimbursement(reimbursement, index) {
   const body = document.getElementById('main-table');
 
   let row = document.createElement('tr'); // create <tr>
+  row.className = 'clickable';
+  row.setAttribute('data-toggle', 'collapse');
+  row.setAttribute(`data-target`, `.accordion-${index}`)
   // row.setAttribute("id", `entry-${i}`);
   // console.log(row);
   // console.log(row.id);
@@ -417,7 +505,18 @@ function addReimbursement(reimbursement) {
   data = document.createElement('td');
   data.className = "request-status"
   data.innerText = reimbursement.status;
+  console.log(reimbursement.status)
   row.appendChild(data);
+  switch (reimbursement.status){
+    case 'Approved':
+      row.className = 'approved';
+      break;
+    case 'Denied':
+      row.className = 'denied';
+      break;
+    default:
+      row.className = 'pending';
+  }
   
   data = document.createElement('td');
   data.className = "approving-admin"
@@ -442,8 +541,10 @@ function addReimbursement(reimbursement) {
   }
   
   body.appendChild(row); // append the row to the body
+  
 
   row = document.createElement('tr');
+  row.className = `item-header collapse accordion-${index}`;
   data = document.createElement('th');
   data.innerText = 'Time Created';
   row.appendChild(data);
@@ -467,23 +568,27 @@ function addReimbursement(reimbursement) {
   body.appendChild(row);
 
   for (let i of reimbursement.items) {
-    addItem(i, reimbursement.username, reimbursement.timeSubmitted);
+    addItem(i, reimbursement.username, reimbursement.timeSubmitted, index);
   }
 
   // reimbursement.items.forEach(addItem, reimbursement.username, reimbursement.timeSubmitted);
 }
 
-function addItem(item, username, timeStamp) {
+function addItem(item, username, timeStamp, index) {
   console.log(item);
   console.log(username);
   console.log(timeStamp);
   const body = document.getElementById('main-table');
   const row = document.createElement('tr');
-  row.classList.add(`${username}`, `${timeStamp.toString()}`);
+  row.className = `${username} ${timeStamp.toString()} collapse accordion-${index}`;
 
   let data = document.createElement('td');
   data.className = 'date-of-expense';
-  item.dateOfExpense ? data.innerText = item.dateOfExpense : data.innerText = item.timeOfExpense;
+  let options = { month: "long", day: "numeric", year: "numeric" };
+  // data.innerText = new Date(item.timeOfExpense).toLocaleDateString("en-US", options);
+  item.dateOfExpense
+    ? data.innerText = new Date(item.dateOfExpense).toLocaleDateString("en-US", options)
+    : data.innerText = new Date(item.timeOfExpense).toLocaleDateString("en-US", options);
   let tag = document.createElement('div');
   item.dateOfExpense ? tag.innerText = item.dateOfExpense : tag.innerText = item.timeOfExpense;
   tag.setAttribute('hidden', 'true');

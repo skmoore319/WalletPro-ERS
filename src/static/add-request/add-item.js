@@ -118,7 +118,7 @@ function saveRequest() {
     return resp.json();
   })
   .then(data => {
-    alert('Success!') // this is horrible, never use alerts
+    // alert('Success!') // this is horrible, never use alerts
     window.location = '../users/index.html';
   })
   .catch(err => {

@@ -7,9 +7,38 @@ body {
 }
 
 #main-menu {
-  margin-top: 60px;
+  margin-top: 290px;
 }
 
 #selection-dropdown-menu {
   left: -60px;
+}
+
+.company-gradient {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#afffaf+0,c1fffc+100 */
+  background: #afffaf; /* Old browsers */
+  background: -moz-linear-gradient(left, #afffaf 0%, #c1fffc 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #afffaf 0%,#c1fffc 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #afffaf 0%,#c1fffc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#afffaf', endColorstr='#c1fffc',GradientType=1 ); /* IE6-9 */
+}
+
+.pending {
+  background-color: #ADFBFF;
+}
+
+.approved {
+  background-color: #99FF9C;
+}
+
+.denied {
+  background-color: #FF6666;
+}
+
+.item-header {
+  background-color: #FFFFCC;
+}
+
+#greeting-panel {
+  top: 55px;
 }
