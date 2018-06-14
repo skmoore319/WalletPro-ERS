@@ -122,8 +122,9 @@ let payroll = [
 ];
 
 // Show an employee's request history
-adminMenuRouter.get('/:username/users/:employeeUsername', (req:Request, resp:Response) => {
+adminMenuRouter.get('/users/:employeeUsername', (req:Request, resp:Response) => {
     // Use a service to display all reimbursement requests submitted by a certain employee
+    console.log(`Stepping into DAO with ${req.params.employeeUsername}`)
     ersService.viewMyRequests(req.params.employeeUsername)
         .then(data => {
             resp.json(data.Items);

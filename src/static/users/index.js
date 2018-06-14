@@ -76,6 +76,65 @@ function pullUser() {
     });
 }
 
+function searchUser() {
+  let searchBox = document.getElementById('search-field');
+  let inputUsername = searchBox.value;
+  console.log(inputUsername);
+  fetch(`http://localhost:3001/admins/users/${inputUsername}`, {credentials: 'include'})
+    .then(resp => resp.json())
+    .then((reimbursements) => {
+      // const body = document.getElementById('main-menu');
+      // let elem = document.createElement('h1');
+      // elem.innerText = `Hello, ${user.firstName}`;
+      // if (user.username === 'boss') {elem.innerText += ` ${user.lastName}`;}
+      // body.appendChild(elem);
+      // console.log(user.role);
+      // if (user.role === 'admin') {retrievePending();}
+
+
+      console.log('Reached Milestone')
+
+      const mainCount = document.getElementById('main-menu');
+      let elem = document.createElement('h2');
+      elem.innerText = `${reimbursements[0].username} has submitted ${reimbursements.length} requests`
+      mainCount.appendChild(elem);
+      const header = document.getElementById('table-head-row');
+
+      let data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Submitted by'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Date Of Submission'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Number Of Items'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Status'
+      header.appendChild(data);
+
+      data = document.createElement('th');
+      data.setAttribute("scope", "col");
+      data.innerText = 'Approver'
+      header.appendChild(data);
+
+      const body = document.getElementById('main-table');
+      body.innerHTML = '';
+      // Start here.
+      reimbursements.forEach(addReimbursement);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
 
 function retrievePending() {
   fetch(`http://localhost:3001/admins/requests/pending`)

@@ -70,7 +70,7 @@ export function userExists(username: string): Promise<any> {
 
 // - Get and display all requests that are made by a logged in employee.
 export function viewMyRequests(username: string): Promise<any> {
-    // console.log(username);
+    console.log(`${username} has stepped into the DAO`);
     return docClient.query({
         TableName: 'reimbursement',
         KeyConditionExpression: '#usr = :usename',
